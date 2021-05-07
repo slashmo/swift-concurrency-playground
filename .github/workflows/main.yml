@@ -1,0 +1,17 @@
+on:
+  push:
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '30 5,17 * * *'
+
+jobs:
+  run:
+    name: Run Example
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build Docker Image
+        run: docker build -t concurrency-playground .
+      - name: Run Docker image
+        run: docker run --rm concurrency-playground:latest
